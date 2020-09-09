@@ -1,0 +1,40 @@
+{
+  "name": "electron-quick-start",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "nexe main.js"
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "bin": "bin.js",
+  "devDependencies": {
+    "electron": "^10.1.1",
+    "nexe": "^3.3.7"
+  },
+  "pkg": {
+    "scripts": "./logs.js",
+    "assets": "./*.*"
+  },
+  "dependencies": {
+    "center-align": "^1.0.1",
+    "child_process": "^1.0.2",
+    "colors": "^1.4.0",
+    "console-title": "^1.1.0",
+    "discord.js": "^11.6.4",
+    "esformatter": "^0.11.3",
+    "express": "^4.17.1",
+    "json-beautify": "^1.1.1",
+    "request": "^2.88.2"
+  }
+}
