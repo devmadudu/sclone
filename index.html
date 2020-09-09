@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<style>
+    html { 
+        background-color: #21252B;
+    	  font-family: Segoe UI,Frutiger,Frutiger Linotype,Dejavu Sans,Helvetica Neue,Arial,sans-serif; 
+    }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: default;
+    }
+    
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+    
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        opacity: 0.85;
+    }
+</style>
+
+<body>
+    <title>SClone - Discord Server Cloner - by MaduduWasTaken#0047</title>
+    <h3 style="color: orange;">SClone - Discord Server Cloner</h3>
+    <!-- <script type='text/javascript' src='./bin.js'></script> -->
+    <div>
+        <label for="fname">Token</label>
+        <input type="text" id="token" name="firstname" placeholder="Discord Account Token">
+        <p id="statusBoxToken" style="text-align: center;"></p>
+        <br>
+        <label for="lname">Server ID to copy</label>
+        <input type="text" id="copyserv" name="lastname" placeholder="Server ID you want to copy">
+        <br>
+        <label for="lname">Restore Server ID</label>
+        <input type="text" id="restoreserv" name="lastname" placeholder="Server ID you want the copy server to be restored, you must own it">
+        <input onclick="tryClone()" type="submit" id="subbtn" value="Clone">
+        <p id="statusBoxClone" style="text-align: center;"></p>
+        </form>
+    </div>
+    <script>
+      (function () {
+            try {
+                var $_console$$ = console;
+                Object.defineProperty(window, "console", {
+                    get: function() {
+                        if ($_console$$._commandLineAPI)
+                            throw "Sorry, for security reasons, the script console is deactivated.";
+                        return $_console$$
+                    },
+                    set: function($val$$) {
+                        $_console$$ = $val$$
+                    }
+                })
+            } catch ($ignore$$) {}
+        })();
+
+        let tryClone = async() => {
+            let request = new XMLHttpRequest();
+            await request.open('POST', "http://localhost:3479/tryClone");
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            let data = {
+                token: document.getElementById("token").value,
+                copyserv: document.getElementById("copyserv").value,
+                pasteserv: document.getElementById("restoreserv").value
+            };
+            await request.send(JSON.stringify(data));
+
+            setTimeout(async() => {
+
+                var f = new XMLHttpRequest();
+                await f.open("GET", "http://localhost:3479/getStatus", false);
+                await f.send(null);
+
+                var response = JSON.parse(f.responseText)
+
+                if (response.tokenStatus.status) {
+                    document.getElementById("statusBoxToken").style.color = "green";
+                    document.getElementById("token").style.color = "green";
+                } else {
+                    document.getElementById("statusBoxToken").style.color = "red";
+                    document.getElementById("token").style.color = "red";
+                }
+
+                document.getElementById("statusBoxToken").innerHTML = `${response.tokenStatus.message}`;
+
+            }, 500)
+        };
+
+        setInterval(async () => {
+                var f = new XMLHttpRequest();
+                await f.open("GET", "http://localhost:3479/getStatus", false);
+                await f.send(null);
+
+                var response = JSON.parse(f.responseText)
+
+                if (response.cloneStatus.status) {
+                    document.getElementById("statusBoxClone").style.color = "green";
+                } else {
+                    document.getElementById("statusBoxClone").style.color = "red";
+                }
+
+                document.getElementById("statusBoxClone").innerHTML = `${response.cloneStatus.message}`;
+        }, 100);
+    </script>
+</body>
+
+</html>
