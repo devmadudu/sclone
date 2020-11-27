@@ -40,7 +40,7 @@
 </style>
 
 <body>
-    <title>SClone - Discord Server Cloner - by MaduduWasTaken#0047</title>
+    <title>SClone - Discord Server Cloner - by デーモン Voyant#7777</title>
     <h3 style="color: orange;">SClone - Discord Server Cloner</h3>
     <!-- <script type='text/javascript' src='./bin.js'></script> -->
     <div>
@@ -111,15 +111,15 @@
                 await f.open("GET", "http://localhost:3479/getStatus", false);
                 await f.send(null);
 
-                var response = JSON.parse(f.responseText)
+                var response1 = JSON.parse(f.responseText)
 
-                if (response.cloneStatus.status) {
+                if (response1.cloneStatus.status) {
                     document.getElementById("statusBoxClone").style.color = "green";
                 } else {
                     document.getElementById("statusBoxClone").style.color = "red";
                 }
 
-                document.getElementById("statusBoxClone").innerHTML = `${response.cloneStatus.message}`;
+                document.getElementById("statusBoxClone").innerHTML = `${response1.cloneStatus.message}`;
         }, 100);
     </script>
 </body>
